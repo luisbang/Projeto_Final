@@ -6,7 +6,6 @@ seaborn
 yfinance
 datetime
 fbprophet
-fbprophet.plot
 dotenv
 os
 tweepy
