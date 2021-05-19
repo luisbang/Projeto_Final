@@ -6,7 +6,6 @@ seaborn
 yfinance
 datetime
 fbprophet
-python-dotenv
 os
 tweepy
 textblob

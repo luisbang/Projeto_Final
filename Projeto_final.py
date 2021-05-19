@@ -7,7 +7,7 @@ import yfinance
 import datetime
 from fbprophet import Prophet
 from fbprophet.plot import plot_plotly, plot_components_plotly
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 #from sklearn.preprocessing import MinMaxScaler
 #from sklearn.model_selection import train_test_split
 #import tensorflow as tf
@@ -130,7 +130,7 @@ st.plotly_chart(fig)
 
 #Twitter
 
-load_dotenv('twitter_token.env')
+#load_dotenv('twitter_token.env')
 consumer_key=os.getenv('consumer_key')
 consumer_secret=os.getenv('consumer_secret')
 access_token=os.getenv('access_token')
