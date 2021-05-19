@@ -12,3 +12,4 @@ regex
 wordcloud
 googletrans
 plotly
+pystan
