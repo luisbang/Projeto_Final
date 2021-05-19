@@ -5,6 +5,7 @@ matplotlib
 seaborn
 yfinance
 datetime
+pystan==2.19.1.1
 fbprophet
 tweepy
 textblob
@@ -12,4 +13,3 @@ regex
 wordcloud
 googletrans
 plotly
-pystan
