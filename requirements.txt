@@ -9,6 +9,5 @@ fbprophet
 tweepy
 textblob
 wordcloud
-re
 googletrans
 plotly
