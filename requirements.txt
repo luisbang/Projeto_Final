@@ -1,0 +1,17 @@
+streamlit
+pandas
+numpy
+matplotlib.pyplot
+seaborn
+yfinance
+datetime
+fbprophet
+fbprophet.plot
+dotenv
+os
+tweepy
+textblob
+fwordcloud
+re
+googletrans
+plotly
