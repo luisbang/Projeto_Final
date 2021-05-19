@@ -8,6 +8,7 @@ datetime
 fbprophet
 tweepy
 textblob
+regex
 wordcloud
 googletrans
 plotly
