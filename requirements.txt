@@ -6,7 +6,6 @@ seaborn
 yfinance
 datetime
 fbprophet
-os
 tweepy
 textblob
 fwordcloud
