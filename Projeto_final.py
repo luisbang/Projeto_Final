@@ -178,13 +178,11 @@ st.title('3.Twitter Sentiment Analysis')
 #access_token=os.getenv('access_token')
 #access_token_secret=os.getenv('access_token_secret')
 
-st.write('consumer_key:', st.secrets['consumer_key'])
 
-#st.write(os.environ['consumer_key'])
-#consumer_key=st.secrets['consumer_key']
-#consumer_secret=st.secrets['consumer_secret']
-#access_token=st.secrets['acess_token']
-#access_token_secret=st.secrets['access_token_secret']
+consumer_key=st.secrets['consumer_key']
+consumer_secret=st.secrets['consumer_secret']
+access_token=st.secrets['acess_token']
+access_token_secret=st.secrets['access_token_secret']
 
 
 authenticate=tw.OAuthHandler(consumer_key, consumer_secret)
