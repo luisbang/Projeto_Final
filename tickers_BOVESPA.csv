@@ -1,0 +1,85 @@
+,Setor,Codigo,Acao
+0,Bens Indls / Maqs e Equips,WEGE3,WEG
+1,Bens Indls / Mat Transporte,EMBR3,EMBRAER
+2,Bens Indls/Transporte,AZUL4,AZUL
+3,Bens Indls/Transporte,CCRO3,CCR SA
+4,Bens Indls/Transporte,ECOR3,ECORODOVIAS
+5,Bens Indls/Transporte,GOLL4,GOL
+6,Bens Indls/Transporte,RAIL3,RUMO S.A.
+7,Cons N  Basico / Alimentos Processados,BRFS3,BRF SA
+8,Cons N  Basico / Alimentos Processados,JBSS3,JBS
+9,Cons N  Basico / Alimentos Processados,MRFG3,MARFRIG
+10,Cons N  Basico / Alimentos Processados,BEEF3,MINERVA
+11,Cons N Ciclio / Bebidas,ABEV3,AMBEV S/A
+12,Cons N Ciclio / Comercio Distr.,ASAI3,ASSAI
+13,Cons N Ciclio / Comercio Distr.,CRFB3,CARREFOUR BR
+14,Cons N Ciclio / Comercio Distr.,PCAR3,P.ACUCAR-CBD
+15,Cons N Ciclio / Pr Pessoal Limp,NTCO3,GRUPO NATURA
+16,Consumo Ciclico / Comercio,BTOW3,B2W DIGITAL
+17,Consumo Ciclico / Comercio,LAME4,LOJAS AMERIC
+18,Consumo Ciclico / Comercio,LREN3,LOJAS RENNER
+19,Consumo Ciclico / Comercio,MGLU3,MAGAZ LUIZA
+20,Consumo Ciclico / Comercio,VVAR3,VIAVAREJO
+21,Consumo Ciclico / Tecid Vest Cal?HGTX3,CIA HERING,ON      NM
+22,Consumo Ciclico/Constr Civil,CYRE3,CYRELA REALT
+23,Consumo Ciclico/Constr Civil,EZTC3,EZTEC
+24,Consumo Ciclico/Constr Civil,JHSF3,JHSF PART
+25,Consumo Ciclico/Constr Civil,MRVE3,MRV
+26,Consumo Ciclico/Viagens e Lazer,CVCB3,CVC BRASIL
+27,Diversos,COGN3,COGNA ON
+28,Diversos,RENT3,LOCALIZA
+29,Diversos,LCAM3,LOCAMERICA
+30,Diversos,YDUQ3,YDUQS PART
+31,Financ e Outros / Explor Imoveis,BRML3,BR MALLS PAR
+32,Financ e Outros / Explor Imoveis,IGTA3,IGUATEMI
+33,Financ e Outros / Explor Imoveis,MULT3,MULTIPLAN
+34,Financ e Outros / Interms Financs,BIDI11,BANCO INTER
+35,Financ e Outros / Interms Financs,BBDC3,BRADESCO
+36,Financ e Outros / Interms Financs,BBDC4,BRADESCO
+37,Financ e Outros / Interms Financs,BBAS3,BRASIL
+38,Financ e Outros / Interms Financs,BPAC11,BTGP BANCO
+39,Financ e Outros / Interms Financs,ITSA4,ITAUSA
+40,Financ e Outros / Interms Financs,ITUB4,ITAUUNIBANCO
+41,Financ e Outros / Interms Financs,SANB11,SANTANDER BR
+42,Financ e Outros / Previd  Seguros,BBSE3,BBSEGURIDADE
+43,Financ e Outros / Previd  Seguros,IRBR3,IRBBRASIL RE
+44,Financ e Outros / Previd  Seguros,SULA11,SUL AMERICA
+45,Financeiro e Outros/Servi?s Financeiros Diversos,B3SA3,B3
+46,Financeiro e Outros/Servi?s Financeiros Diversos,CIEL3,CIELO
+47,Mats Basicos / Madeira e Papel,KLBN11,KLABIN S/A
+48,Mats Basicos / Madeira e Papel,SUZB3,SUZANO S.A.
+49,Mats Basicos / Mineracao,BRAP4,BRADESPAR
+50,Mats Basicos / Mineracao,VALE3,VALE
+51,Mats Basicos / Qu?icos,BRKM5,BRASKEM
+52,Mats Basicos / Sid Metalurgia,GGBR4,GERDAU
+53,Mats Basicos / Sid Metalurgia,GOAU4,GERDAU MET
+54,Mats Basicos / Sid Metalurgia,CSNA3,SID NACIONAL
+55,Mats Basicos / Sid Metalurgia,USIM5,USIMINAS
+56,Petroreo/ Gas e Biocombustiveis,CSAN3,COSAN
+57,Petroreo/ Gas e Biocombustiveis,PETR3,PETROBRAS
+58,Petroreo/ Gas e Biocombustiveis,PETR4,PETROBRAS
+59,Petroreo/ Gas e Biocombustiveis,BRDT3,PETROBRAS BR
+60,Petroreo/ Gas e Biocombustiveis,PRIO3,PETRORIO
+61,Petroreo/ Gas e Biocombustiveis,UGPA3,ULTRAPAR
+62,Saude/ComercioDistr.,HYPE3,HYPERA
+63,Saude/ComercioDistr.,RADL3,RAIADROGASIL
+64,Saude/SM Hosp An.Diag,FLRY3,FLEURY
+65,Saude/SM Hosp An.Diag,HAPV3,HAPVIDA
+66,Saude/SM Hosp An.Diag,GNDI3,INTERMEDICA
+67,Saude/SM Hosp An.Diag,QUAL3,QUALICORP
+68,Tec.Informacao/Programas Servs,LWSA3,LOCAWEB
+69,Tec.Informacao/Programas Servs,TOTS3,TOTVS
+70,Telecomunicao,VIVT3,TELEF BRASIL
+71,Telecomunicao,TIMS3,TIM
+72,Utilidade Publ / Agua Saneamento,SBSP3,SABESP
+73,Utilidade Publ / Energ Eletrica,CMIG4,CEMIG
+74,Utilidade Publ / Energ Eletrica,CPLE6,COPEL
+75,Utilidade Publ / Energ Eletrica,CPFE3,CPFL ENERGIA
+76,Utilidade Publ / Energ Eletrica,ELET3,ELETROBRAS
+77,Utilidade Publ / Energ Eletrica,ELET6,ELETROBRAS
+78,Utilidade Publ / Energ Eletrica,ENBR3,ENERGIAS BR
+79,Utilidade Publ / Energ Eletrica,ENGI11,ENERGISA
+80,Utilidade Publ / Energ Eletrica,ENEV3,ENEVA
+81,Utilidade Publ / Energ Eletrica,EGIE3,ENGIE BRASIL
+82,Utilidade Publ / Energ Eletrica,EQTL3,EQUATORIAL
+83,Utilidade Publ / Energ Eletrica,TAEE11,TAESA
