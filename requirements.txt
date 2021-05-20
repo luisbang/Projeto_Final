@@ -1,7 +1,7 @@
 nltk
 Cython
 convertdate
-streamlit
+streamlit==0.62.1
 pandas
 numpy
 matplotlib
@@ -10,7 +10,7 @@ yfinance
 datetime
 pystan==2.19.1.1
 plotly
-fbprophet
+fbprophet==0.6
 tweepy
 textblob
 regex
