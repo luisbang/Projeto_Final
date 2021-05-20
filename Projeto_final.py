@@ -181,7 +181,7 @@ st.title('3.Twitter Sentiment Analysis')
 
 consumer_key=st.secrets['consumer_key']
 consumer_secret=st.secrets['consumer_secret']
-access_token=st.secrets['acess_token']
+access_token=st.secrets['access_token']
 access_token_secret=st.secrets['access_token_secret']
 
 
