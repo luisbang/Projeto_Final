@@ -18,23 +18,29 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 #Importing Data
-tickers=pd.read_csv('tickers.csv')
-tickers_brasil=tickers.loc[tickers['Exchange']=='SAO',['Ticker','Name']]
-tickers_brasil['ticker_name']=tickers_brasil['Ticker']+' / '+tickers_brasil['Name']
+tickers=pd.read_csv('tickers_BOVESPA.csv')
+tickers['Name Option']=tickers['Acao']+' / '+tickers['Codigo']
+#tickers_brasil=tickers.loc[tickers['Exchange']=='SAO',['Ticker','Name']]
+#tickers_brasil['ticker_name']=tickers_brasil['Ticker']+' / '+tickers_brasil['Name']
 st.title('Projeto Final')
 
 
 #Selectbox for tickers
+
 option = st.selectbox(
      'Which ticker would you like to see?',
-    list(tickers_brasil['ticker_name']))
+    list(tickers['Name Option']))
 
+chose_option=st.checkbox('Check if you want to search for Segment')
+if chose_option:
+  option_setor=st.selectbox('Setor', list(tickers['Setor'].unique()))
+  option=st.selectbox('Ticker', list(tickers.loc[tickers['Setor']==option_setor]['Name Option']))
 
 #option = st.sidebar.selectbox(
 #     'Which ticker would you like to analyse?',
 #    list(tickers_brasil['ticker_name']))
 
-option_selected=tickers_brasil.loc[tickers_brasil['ticker_name']==option]['Ticker']
+option_selected=tickers.loc[tickers['Name Option']==option]['Codigo']+'.SA'
 st.write('You selected:', option)
 
 
@@ -162,10 +168,17 @@ st.plotly_chart(fig)
 st.title('3.Twitter Sentiment Analysis')
 
 #load_dotenv('C://Users//youngbae//Documents//twitter_token.env')
-consumer_key=os.getenv('consumer_key')
-consumer_secret=os.getenv('consumer_secret')
-access_token=os.getenv('access_token')
-access_token_secret=os.getenv('access_token_secret')
+#consumer_key=os.getenv('consumer_key')
+#consumer_secret=os.getenv('consumer_secret')
+#access_token=os.getenv('access_token')
+#access_token_secret=os.getenv('access_token_secret')
+
+consumer_key=st.secrets['consumer_key']
+consumer_secret=st.secrets['consumer_secret']
+access_token=st.secrets['acess_token']
+access_token_secret=st.secrets['access_token_secret']
+
+
 
 authenticate=tw.OAuthHandler(consumer_key, consumer_secret)
 authenticate.set_access_token(access_token, access_token_secret)
@@ -184,8 +197,6 @@ def cleanTxt(text):
   text=re.sub('\n','',text)
   return text
 df['Tweets']=df['Tweets'].apply(cleanTxt)
-
-st.write(df)
 
 translator = Translator()
 df['Translated']=pd.DataFrame([translator.translate(df['Tweets'][i], src='pt', dest='en').text for i in range(0, df.shape[0])])
@@ -244,9 +255,20 @@ if checkbox_counts:
 
 df_polarity=df.groupby(by=df.index).mean()[['Polarity']]
 stock=data[['Close']]
+df_polarity['Date']=df_polarity.index
+df_polarity=df_polarity.reset_index()[['Date','Polarity']]
+stock=stock.reset_index()
+df_polarity['Date'] = df_polarity['Date'].astype('datetime64[ns]')
+compare=df_polarity.merge(stock, how='left')
 
-compare=df_polarity.merge(stock, left_index=True, right_index=True)[['Polarity','Close']]
+for i in range(compare.shape[0]):
+  if np.isnan(compare['Close'][i])==True:
+    compare['Close'][i]=compare['Close'][i-1]
+compare.index=compare['Date']
 
+#compare=df_polarity.merge(stock, left_index=True, right_index=True)[['Polarity','Close']]
+
+#compare=df_polarity.merge(stock)
 fig, ax1=plt.subplots(figsize=(16,6))
 ax2=ax1.twinx()
 ax1.plot(compare['Close'], color='blue', label='Price')
