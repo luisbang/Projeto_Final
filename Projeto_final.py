@@ -53,7 +53,7 @@ data_check=st.checkbox('Check if you want to see the data')
 if data_check:
   st.write(data)
 
-st.markdown('<img src=%s>' % yfinance.Ticker(str(option_selected.values[0])).info['logo_url'])
+st.markdown('<img src=%s>' % yfinance.Ticker(str(option_selected.values[0])).info['logo_url'],unsafe_allow_html=True)
 st.header('**%s**' % yfinance.Ticker(str(option_selected.values[0])).info['longName'])
 st.info(yfinance.Ticker(str(option_selected.values[0])).info['longBusinessSummary'])
 
