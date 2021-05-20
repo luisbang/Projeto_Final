@@ -8,14 +8,14 @@ import datetime
 from fbprophet import Prophet
 from fbprophet.plot import plot_plotly, plot_components_plotly
 #from dotenv import load_dotenv
-#import os
-#import tweepy as tw
-#from textblob import TextBlob
-#from wordcloud import WordCloud
-#import re
-#from googletrans import Translator
-#import plotly.graph_objects as go
-#from plotly.subplots import make_subplots
+import os
+import tweepy as tw
+from textblob import TextBlob
+from wordcloud import WordCloud
+import re
+from googletrans import Translator
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 #Importing Data
 tickers=pd.read_csv('tickers.csv')
@@ -94,7 +94,7 @@ data_macd['Buy_signal_price']=a[0]
 data_macd['Sell_signal_price']=a[1]
 
 
-'''
+
 fig=make_subplots(vertical_spacing=0, rows=2, cols=1, row_heights=[4,3], shared_xaxes=True)
 fig.add_trace(go.Scatter(x=data_macd.index, y=data_macd.Close, name='Price'))
 fig.add_trace(go.Scatter(x=data_macd.index, y=data_macd['Buy_signal_price'], mode='markers', marker_color='green', marker=dict(size=8,symbol=5), name='Buy'))
@@ -108,7 +108,7 @@ fig.update_layout(width=1000)
 fig.update_xaxes(showline=True, linewidth=1, linecolor='black', mirror=False)
 st.plotly_chart(fig)
 
-'''
+
 
 val_buy=0
 val_sell=0
@@ -155,7 +155,7 @@ forecast=prophet.predict(future)
 fig=plot_plotly(prophet, forecast)
 st.plotly_chart(fig)
 
-'''
+
 
 #Twitter
 
@@ -258,4 +258,3 @@ ax1.legend(loc='upper left', fontsize=12)
 ax2.legend(loc='upper left', bbox_to_anchor=(0, 0.93), fontsize=12)
 st.pyplot(fig=fig)
 
-'''
