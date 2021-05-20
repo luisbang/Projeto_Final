@@ -7,8 +7,6 @@ import yfinance
 import datetime
 from fbprophet import Prophet
 from fbprophet.plot import plot_plotly, plot_components_plotly
-#from dotenv import load_dotenv
-import os
 import tweepy as tw
 from textblob import TextBlob
 from wordcloud import WordCloud
@@ -17,16 +15,15 @@ from googletrans import Translator
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
+st.write('---------------------')
+st.title('Stock Analysis System')
+st.write('---------------------')
+
 #Importing Data
 tickers=pd.read_csv('tickers_BOVESPA.csv')
 tickers['Name Option']=tickers['Acao']+' / '+tickers['Codigo']
-#tickers_brasil=tickers.loc[tickers['Exchange']=='SAO',['Ticker','Name']]
-#tickers_brasil['ticker_name']=tickers_brasil['Ticker']+' / '+tickers_brasil['Name']
-st.title('Projeto Final')
-
 
 #Selectbox for tickers
-
 option = st.selectbox(
      'Which ticker would you like to see?',
     list(tickers['Name Option']))
@@ -36,16 +33,9 @@ if chose_option:
   option_setor=st.selectbox('Setor', list(tickers['Setor'].unique()))
   option=st.selectbox('Ticker', list(tickers.loc[tickers['Setor']==option_setor]['Name Option']))
 
-#option = st.sidebar.selectbox(
-#     'Which ticker would you like to analyse?',
-#    list(tickers_brasil['ticker_name']))
-
 option_selected=tickers.loc[tickers['Name Option']==option]['Codigo']+'.SA'
-st.write('You selected:', option)
 
-
-
-#Load tha data
+#Load tha data and information
 data=yfinance.download(str(option_selected.values[0]), start='2017-01-01', end=datetime.datetime.today())
 
 
@@ -57,23 +47,25 @@ st.markdown('<img src=%s>' % yfinance.Ticker(str(option_selected.values[0])).inf
 st.header('**%s**' % yfinance.Ticker(str(option_selected.values[0])).info['longName'])
 st.info(yfinance.Ticker(str(option_selected.values[0])).info['longBusinessSummary'])
 
-#MACD
+#-------------------------------------------------------------------------------------
+#MACD analysis
 
 st.title('1.MACD Signal')
 
-data_macd=data[-40:-1]
-#calculatge the short term exponential moving average(EMA)
+#slider for MACD period
+macd_period=st.slider('Chose the period (Default=40days)', min_value=40)
+
+#Calculate short moving average, MACD, signal line
+data_macd=data[-macd_period:-1]
 shortEMA=data_macd.Close.ewm(span=12, adjust=False).mean()
-#calculate the long term exponential moving average(EMA)
 longEMA=data_macd.Close.ewm(span=26, adjust=False).mean()
-#calculate the MACD Line
 MACD=shortEMA-longEMA
-#calculate the signal line
 signal=MACD.ewm(span=9, adjust=False).mean()
 
 data_macd['MACD']=MACD
 data_macd['Signal Line']=signal
 
+#creating function for buy/sell signal
 def buy_sell(signal):
   buy=[]
   sell=[]
@@ -104,7 +96,7 @@ a= buy_sell(data_macd)
 data_macd['Buy_signal_price']=a[0]
 data_macd['Sell_signal_price']=a[1]
 
-
+#plotting MACD graph
 
 fig=make_subplots(vertical_spacing=0, rows=2, cols=1, row_heights=[4,3], shared_xaxes=True)
 fig.add_trace(go.Scatter(x=data_macd.index, y=data_macd.Close, name='Price'))
@@ -117,9 +109,9 @@ fig.update_layout(xaxis_rangeslider_visible=False, xaxis=dict(zerolinecolor='bla
 fig.update_layout(width=1000)
 
 fig.update_xaxes(showline=True, linewidth=1, linecolor='black', mirror=False)
-st.plotly_chart(fig)
+st.plotly_chart(fig,use_container_width=True)
 
-
+#Output for last signal
 
 val_buy=0
 val_sell=0
@@ -137,24 +129,26 @@ for i in reversed(range(1,data_macd.shape[0])):
 
 if val_buy < val_sell:
   val=val_sell
-  st.write(f'Last signal was SELL, on {data_macd.index[val].month}/{data_macd.index[val].day} ({data_macd.Sell_signal_price[val]:.2f} reais)')
+  st.subheader(f'→ Last signal was SELL, on {data_macd.index[val].month}/{data_macd.index[val].day} ({data_macd.Sell_signal_price[val]:.2f} reais)')
 elif val_buy > val_sell:
   val=val_buy
-  st.write(f'Last signal was SELL, on {data_macd.index[val].month}/{data_macd.index[val].day} ({data_macd.Buy_signal_price[val]:.2f} reais)')
+  st.subheader(f'→ Last signal was SELL, on {data_macd.index[val].month}/{data_macd.index[val].day} ({data_macd.Buy_signal_price[val]:.2f} reais)')
+
+#---------------------------------------------------------------------------------
+
+st.write('---------------------')
 
 #FBProphet
 
-st.title('2.Predicting with Machine Learning (30 days)')
+st.title('2.Predicting with Machine Learning (60 days)')
 
-periods_input=30
-
-
+periods_input=60
 
 period_checkbox=st.checkbox('If you want to change the period check it')
 
 if period_checkbox:
   periods_input = st.number_input('How many periods would you like to forecast into the future? (1~360 Days)',
-                                  min_value=1, max_value=365)
+                                  min_value=30, max_value=365)
 
 
 data['y']=data['Close']
@@ -164,37 +158,34 @@ prophet.fit(data)
 future=prophet.make_future_dataframe(periods=periods_input)
 forecast=prophet.predict(future)
 fig=plot_plotly(prophet, forecast)
-st.plotly_chart(fig)
+st.plotly_chart(fig, use_container_width=True)
 
+#--------------------------------------------------------------------------
 
+st.write('---------------------')
 
 #Twitter
 
 st.title('3.Twitter Sentiment Analysis')
 
-#load_dotenv('C://Users//youngbae//Documents//twitter_token.env')
-#consumer_key=os.getenv('consumer_key')
-#consumer_secret=os.getenv('consumer_secret')
-#access_token=os.getenv('access_token')
-#access_token_secret=os.getenv('access_token_secret')
-
-
+#API key
 consumer_key=st.secrets['consumer_key']
 consumer_secret=st.secrets['consumer_secret']
 access_token=st.secrets['access_token']
 access_token_secret=st.secrets['access_token_secret']
 
-
 authenticate=tw.OAuthHandler(consumer_key, consumer_secret)
 authenticate.set_access_token(access_token, access_token_secret)
 api=tw.API(authenticate, wait_on_rate_limit=True)
 
+#get tweets
 option_tweet=str(option_selected.values[0]).replace('.SA','')
 
 search_words=option_tweet + '-filter:retweets'
 tweets=tw.Cursor(api.search, q=search_words, lang='pt').items(2000)
 df=pd.DataFrame([[tweet.created_at,tweet.text] for tweet in tweets], columns=['Date','Tweets'])
 
+#Clanning tweets
 def cleanTxt(text):
   text=re.sub('@[A-Za-z0-9:_]+','',text) #remove @mentions
   text=re.sub('RT[\s]+','',text) # remove RT
@@ -206,14 +197,16 @@ df['Tweets']=df['Tweets'].apply(cleanTxt)
 translator = Translator()
 df['Translated']=pd.DataFrame([translator.translate(df['Tweets'][i], src='pt', dest='en').text for i in range(0, df.shape[0])])
 
-def getSubjectivity(text):
-  return TextBlob(text).sentiment.subjectivity
+#get Polarity
+
+#def getSubjectivity(text):
+#  return TextBlob(text).sentiment.subjectivity
 
 
 def getPolarity(text):
   return TextBlob(text).sentiment.polarity
 
-df['Subjectivity'] = df['Translated'].apply(getSubjectivity)
+#df['Subjectivity'] = df['Translated'].apply(getSubjectivity)
 df['Polarity']=df['Translated'].apply(getPolarity)
 
 word_cloud=st.checkbox('See the Word Cloud')
@@ -221,6 +214,7 @@ word_cloud=st.checkbox('See the Word Cloud')
 allWords=' '.join( [twts for twts in df['Tweets']] )
 wordCloud=WordCloud(width=500, height=300, random_state=21, max_font_size=119).generate(allWords)
 
+#show the Word Cloud
 if word_cloud:
   plt.figure(figsize=(20, 10))
   plt.imshow(wordCloud, interpolation='bilinear')
@@ -239,13 +233,13 @@ def getAnalysis(score):
 df.index=df['Date']
 df.index=df.index.date
 
+#Show the tweets
 checkbox_twitter=st.checkbox('See tweets')
 df['Analysis']=df['Polarity'].apply(getAnalysis)
 if checkbox_twitter:
   st.write(df[['Tweets']])
 
 #show the value counts
-
 checkbox_counts=st.checkbox('See polarity counts')
 if checkbox_counts:
   fig1=plt.figure(figsize=(20,10))
@@ -258,6 +252,7 @@ if checkbox_counts:
       ax.annotate(f'\n{p.get_height()}\n({((p.get_height())/num_total)*100:.1f}%)', (p.get_x()+0.4, p.get_height()), ha='center', va='top', size=18)
   st.pyplot(fig=fig1)
 
+#Dataset for compare polarity and stock's price
 df_polarity=df.groupby(by=df.index).mean()[['Polarity']]
 stock=data[['Close']]
 df_polarity['Date']=df_polarity.index
@@ -271,9 +266,7 @@ for i in range(compare.shape[0]):
     compare['Close'][i]=compare['Close'][i-1]
 compare.index=compare['Date']
 
-#compare=df_polarity.merge(stock, left_index=True, right_index=True)[['Polarity','Close']]
-
-#compare=df_polarity.merge(stock)
+#plot the graph
 fig, ax1=plt.subplots(figsize=(16,6))
 ax2=ax1.twinx()
 ax1.plot(compare['Close'], color='blue', label='Price')
