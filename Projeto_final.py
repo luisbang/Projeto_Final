@@ -15,8 +15,11 @@ from googletrans import Translator
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
+image='Seno_logo.jpeg'
+st.image(image, width=None)
 st.write('---------------------')
-st.title('Stock Analysis System')
+st.title('SENO°')
+st.subheader('Stock Analysis System')
 st.write('---------------------')
 
 #Importing Data
