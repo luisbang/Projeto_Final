@@ -1,4 +1,4 @@
-  <p align="center">
+   <p align="center">
 <img src=https://user-images.githubusercontent.com/79090589/119140306-5e5cfb00-ba1a-11eb-977b-14d97c56c9b8.png width='400' > <img src=https://user-images.githubusercontent.com/79090589/114392695-816cd300-9b6f-11eb-8b13-16c9465707fb.png width='200' >  
 
 # Projeto SENO°
