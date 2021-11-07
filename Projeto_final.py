@@ -185,7 +185,9 @@ api=tw.API(authenticate, wait_on_rate_limit=True)
 option_tweet=str(option_selected.values[0]).replace('.SA','')
 
 search_words=option_tweet + '-filter:retweets'
-tweets=tw.Cursor(api.search, q=search_words, lang='pt')
+#tweets=tw.Cursor(api.search, q=search_words, lang='pt')
+tweets=api.search_tweets(q=search_words ,lang='pt')
+
 df=pd.DataFrame([[tweet.created_at,tweet.text] for tweet in tweets], columns=['Date','Tweets'])
 
 #Clanning tweets
